@@ -2,12 +2,13 @@ from flask import Flask
 from flask import request
 from PIL import Image
 import CharPicture
+import uuid
 
 
 app = Flask(__name__)
 
 
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/charpic', methods=['POST', 'GET'])
 def index():
 
     return'''<form method="POST" enctype="multipart/form-data" action="/upload">
@@ -23,9 +24,9 @@ def upload():
     im = Image.open(file)
     im = CharPicture.contrast_enhance(im, 10)
     result = CharPicture.convert_to_charpic(im, 1)
-    #file.save('file')
+    # file.save(uuid.uuid4()+'jpg')
     # return '''<h1>上传成功</h1>'''
     return result
 
 if __name__ == '__main__':
-    app.run()
+    app.run('0.0.0.0')

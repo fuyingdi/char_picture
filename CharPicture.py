@@ -11,7 +11,8 @@ def convert_to_charpic(image, scale=1):
     """
     con_result = ''
     assert isinstance(image, Image.Image)
-    image.thumbnail((image.size[0] // scale * 2, image.size[1] // scale))
+    image.thumbnail((320, image.size[1]*320//image.size[0]))  # 强制缩成320*180
+    image.thumbnail((image.size[0] // scale, image.size[1] // scale))
     if image.mode == 'RGB':
         for y in range(0, image.size[1], 2):
             for x in range(0, image.size[0]):
@@ -25,7 +26,6 @@ def convert_to_charpic(image, scale=1):
             for x in range(0, image.size[0]):
                 r, g, b, a = image.getpixel((x, y))
                 gray = r * 0.229 + g * 0.587 + b * 0.114
-                print(int(gray // 256))
                 con_result = con_result + codeset[int(20 * gray // 256)]
             con_result = con_result + '\r\n'
     return con_result
