@@ -23,8 +23,8 @@ def upload():
     print(file)
     im = Image.open(file)
     im = CharPicture.contrast_enhance(im, 10)
-    result = CharPicture.convert_to_charpic(im, 1)
-    file.save(uuid.uuid4() + 'jpg')
+    result = CharPicture.convert_to_charpic(im, 2)
+    file.save(str(uuid.uuid4()) + '.jpg')
     # return '''<h1>上传成功</h1>'''
     return result
 

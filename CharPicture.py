@@ -1,6 +1,7 @@
 from PIL import Image, ImageEnhance
+import os
 
-codeset = '''@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''  # 生成字符画所需的字符集
+codeset = '''█B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,"^`'. '''  # 生成字符画所需的字符集
 
 
 def convert_to_charpic(image, scale=1):
@@ -20,15 +21,15 @@ def convert_to_charpic(image, scale=1):
                 # 计算灰度值
                 gray = r * 0.229 + g * 0.587 + b * 0.114
                 con_result = con_result + codeset[int(20 * gray // 256)]
-            con_result = con_result + '\r\n'
+            con_result = con_result + "<br>"
     elif image.mode == 'RGBA':
         for y in range(0, image.size[1]):
             for x in range(0, image.size[0]):
                 r, g, b, a = image.getpixel((x, y))
                 gray = r * 0.229 + g * 0.587 + b * 0.114
                 con_result = con_result + codeset[int(20 * gray // 256)]
-            con_result = con_result + '\r\n'
-    return con_result
+            con_result = con_result + '<br>'
+    return '<font size="1"> <code>' + con_result +'</font> </code>'
 
 
 def contrast_enhance(image, scale):
